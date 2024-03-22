@@ -155,7 +155,7 @@ async function refreshProfile(field:string) {
   alert('Cập nhật thông tin thành công')
   formStatus.value[field] = 'idle'
 }
-
+// console.log(profile.value)
 </script>
 
 <template>
@@ -165,9 +165,9 @@ async function refreshProfile(field:string) {
         <div>
           <p class="text-xl font-bold">Thông tin tài khoản</p>
 
-          <GroupEmail class="mt-2" v-model="form.email" :schema="emailSchema" :icon="'mdi:email-edit-outline'" />
+          <GroupEmail :class="{'pointer-events-none':['GOOGLE'].includes(profile?.externalLoginProvider)}" class="mt-2" v-model="form.email" :schema="emailSchema" :icon="'mdi:email-edit-outline'" />
 
-          <GroupPassword class="mt-2" :schema="passwordSchema" :icon="'mdi:lock-outline'" />
+          <GroupPassword v-if="!['GOOGLE'].includes(profile?.externalLoginProvider)" class="mt-2" :schema="passwordSchema" :icon="'mdi:lock-outline'" />
 
         </div>
 

@@ -22,7 +22,6 @@ const init = () => {
 }
 
 const currentCategory = v2CategoryStore.findByCode(categorySlug)
-console.log(categorySlug)
 
 init()
 
@@ -46,11 +45,14 @@ onMounted(() => {
     if (currentCategory) analytics.addAccessSpecificSection(currentCategory.id)
 })
 const layout = {
-    tttc: CategorylayoutTTTC,
-    '': CategoryLayoutDefault
+    thitruongtaichinh: CategorylayoutTTTC,
+    stable: CategoryLayoutDefault
 }
+const url = useRequestURL();
+    let hostname = url.hostname.split('.')[0];
+    if(hostname==='localhost') hostname='stable'
 </script>
 
 <template>
-    <component :is="layout['']" :category="currentCategory" :payload="articles" :pagination="pagination" />
+    <component :is="layout[hostname]" :category="currentCategory" :payload="articles" :pagination="pagination" />
 </template>

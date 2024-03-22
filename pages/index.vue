@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Article } from "@organisms/article";
 import { storeToRefs } from "pinia";
-
+// import { useEventStoreV2 } from '~/stores/v2/event';
 const categoryStore = useCategoryStore();
 const EventStore = useEventStore();
 const TopictStore = useTopicStore();
@@ -20,12 +20,19 @@ const phapluat = ref<any>(null);
 const multimedia = ref<any>(null);
 const vanhoa = ref<any>(null);
 
+// const eventStoreV2 = useEventStoreV2()
 // Get List Event New
-const listEvent = ref<any>()
+// const listEvent = await eventStoreV2.listPaging(1, 1, 10)
+// async function fetchListEvent() {
+//   listEvent.value = await EventStore.listPaging(1, 1, 4)
+// }
+// fetchListEvent()
+// console.log(listEvent)
 // async function fetchListEvent(){
 //   listEvent.value = await EventStore.fetchPagingWithFiltering(1, 3, 30)
 // }
 // fetchListEvent()
+// console.log(listEvent.value)
 // Get List Event End
 
 // const {data} = await useAsyncData('homepage-articles', () =>
@@ -95,15 +102,27 @@ const listTopic = ref<any>()
 useHead({
   title: "News",
 });
-
 const url = useRequestURL();
-const hostname = url.hostname.split('.')[0];
-console.log(hostname)
-
+let hostname = url.hostname.split('.')[0];
+if (hostname === 'localhost') hostname = ''
 </script>
 <template>
   <!-- Thi truong tai chinh -->
   <Wrap max-width="2xl" class="mt-8" v-if="hostname !== 'thitruongtaichinh'">
+    <!-- <div class="flex mb-2">
+      <h1
+        class="bg-red-500 text-white uppercase font-bold h-[30px] px-4 rounded-tl-[12px] rounded-br-[12px] flex items-center">
+        Sự kiện</h1>
+      <marquee class="flex-1 flex items-center ml-2">
+        <ul class="flex items-center gap-6 list-disc ml-3 [&_li]:ml-3">
+          <template v-for="(event, i) in listEvent" :key="i">
+            <li v-if="event.title" class="hover:text-primary-100">
+              <NuxtLink :to="{ name: 'event-eventSlug', params: { eventSlug: event.code } }">{{ event.title }}</NuxtLink>
+            </li>
+          </template>
+        </ul>
+      </marquee>
+    </div> -->
     <div class="flex flex-col lg:flex-row gap-8">
       <div class="w-full lg:w-3/4">
         <HomeSection layout="1" page="41" noHeader featured />
@@ -114,7 +133,7 @@ console.log(hostname)
       </div>
     </div>
     <div class="mt-12">
-      <HomeSection layout="4" page="41" featured/>
+      <HomeSection layout="4" page="41" featured />
     </div>
     <!-- <div class="flex gap-8 mt-12">
       <div class="w-full lg:w-3/4">
@@ -127,24 +146,24 @@ console.log(hostname)
         <Exchange />
       </div>
     </div> -->
-   <div class="mt-12">
-      <HomeSection layout="5" page="41" featured/>
+    <div class="mt-12">
+      <HomeSection layout="5" page="41" featured />
     </div>
     <div class="mt-12">
       <!-- <HomeSection layout="2" page="41" noHeader featured /> -->
     </div>
-   <div class="mt-12">
-      <HomeSection layout="3" page="41" featured/>
+    <div class="mt-12">
+      <HomeSection layout="3" page="41" featured />
     </div>
     <!-- <div class="mt-12">
-      <HomeSection layout="9" page="41" category="9" />
+      <HomeSection layout="6" page="41" featured/>
     </div> -->
-    <!-- <div class="mt-12">
-      <HomeSection layout="11" page="41" category="78" limit="6" />
-    </div> -->
+    <div class="mt-12">
+      <HomeSection layout="7" page="41" featured />
+    </div>
   </Wrap>
   <HomeTTTC v-else />
-  
+
   <!-- Heading box -->
   <!-- Event trending -->
   <!-- < ection class="zone zone--breaking mx-auto w-width-full xl:max-w-7xl m-2">
@@ -567,13 +586,15 @@ console.log(hostname)
       </GlideSlide>
     </Glide> -->
     <div class="mt-6 gap-6 grid md:grid-cols-3 md:grid-rows-3 w-full max-w-7xl mx-auto">
-      <Article v-for="(subItem, index) in vanhoa?.setArticles.slice(3)" :key="index" :title="subItem?.title" mode="modern" :slug="'/' + subItem.category?.code + '/' + subItem.code" :brief="subItem?.intro" :thumb="subItem.thumbnail" :class="[
-        index === 0
-          ? 'md:(col-span-2 row-span-2)'
-          : index === 1 || index === 3
-            ? 'md:row-span-2'
-            : '',
-      ]" aspect="aspect-auto" gradientOverlay="after:bg-gradient-to-t after:from-violet-950/70 after:to-transparent" />
+      <Article v-for="(subItem, index) in vanhoa?.setArticles.slice(3)" :key="index" :title="subItem?.title"
+        mode="modern" :slug="'/' + subItem.category?.code + '/' + subItem.code" :brief="subItem?.intro"
+        :thumb="subItem.thumbnail" :class="[
+    index === 0
+      ? 'md:(col-span-2 row-span-2)'
+      : index === 1 || index === 3
+        ? 'md:row-span-2'
+        : '',
+  ]" aspect="aspect-auto" gradientOverlay="after:bg-gradient-to-t after:from-violet-950/70 after:to-transparent" />
     </div>
   </section>
 </template>

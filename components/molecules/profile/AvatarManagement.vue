@@ -15,7 +15,7 @@ const token =data.value?.user?.accessToken
 const handleUploadAvatar = async () => {
   const form = new FormData()
     form.append('file',fileUpload.value)
-      const uploadedImage = await $fetch('https://portal-api-stable.vpress.vn/api-v1/com/resources/file', {
+      const uploadedImage = await $fetch(`${useRuntimeConfig().public.apiUrl}/com/resources/file`, {
         method: 'POST',
         body: form,
         headers: { 
@@ -23,7 +23,7 @@ const handleUploadAvatar = async () => {
   },
       })
       if(uploadedImage) {
-        const updatedProfile = await v2ProfileStore.update({ avatar: `https://portal-api-stable.vpress.vn/${uploadedImage.item.publicUrl}` })
+        const updatedProfile = await v2ProfileStore.update({ avatar: `https://vpress.vn/${uploadedImage.item.publicUrl}` })
         if(updatedProfile) {
           handleClose()
           await v2ProfileStore.fetchCurrentUser(true)

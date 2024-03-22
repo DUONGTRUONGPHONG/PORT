@@ -16,16 +16,6 @@ await fetchArticle()
 watch(fetch, (newX) => {
     fetchArticle()
 })
-// const listArticleResult = computed(() => {
-//     if (!listArticle.value || !listArticle.value.length) return [];
-//     return listArticle.value.map(item => {
-//         return {
-//             ...item,
-//             intro: item.intro ? item.intro.replace(/<div>|<\/div>/g, '') : '',
-//             title: item.title ? item.title.replace(/<div>|<\/div>/g, '') : ''
-//         };
-//     });
-// });
 </script>
 <template>
     <section class="mb-6">
@@ -37,15 +27,15 @@ watch(fetch, (newX) => {
                     </nuxt-link>
                 </figure>
                 <header class="flex-1">
-                    <h3 class="md:text-5 text-[18px] font-300 leading-[1.3] font-playfair group-hover:text-[#ff0018]"><nuxt-link :to="`/${item.code}/${categoryParentId}`" v-html="item?.title"></nuxt-link></h3>
+                    <h3 class="md:text-5 text-[18px] font-300 leading-[1.3] font-playfair group-hover:text-[#ff0018]"><nuxt-link :to="`/${item?.category?.code}/${item?.code}`" v-html="item?.title"></nuxt-link></h3>
                     <div class="text-[13px] opacity-50 my-2"><time>{{ dayjs(createdOn).format('DD/MM/YYYY') }}</time></div>
                     <div class="mt-2 text-justify font-300 hidden md:block" >
-                        <span class="!line-clamp-2  " v-html="item.intro"></span>
+                        <span class="!line-clamp-2  " v-html="item?.intro"></span>
                         </div>
                 </header>
             </article>
         </div>
-        <footer class=" flex justify-center cursor-pointer" @click="fetch += 4">
+        <footer class=" flex justify-center cursor-pointer" @click="fetch += 4" v-if="listArticle.value?.length>0">
             <p
                 class="text-center text-4 text-[#ff0018] inline-block w-a py-[0.375rem] px-3 w-auto border border-[#ff0018] rounded hover:bg-[#ff0018] hover:text-white">
                 Xem thêm

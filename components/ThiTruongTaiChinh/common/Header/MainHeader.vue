@@ -1,7 +1,8 @@
 <template>
     <header id="site-header">
         <HeaderTopBar />
-        <div class="py-2" :class="{ 'max-md:fixed max-md:top-0 max-md:left-0 max-md:right-0 max-md:z-10 max-md:bg-white': isFixed }">
+        <div class="py-2"
+            :class="{ 'max-md:fixed max-md:top-0 max-md:left-0 max-md:right-0 max-md:z-10 max-md:bg-white': isFixed }">
             <div class="mx-auto px-3 xl:max-w-[1320px] py-0 md:py-4 flex justify-center">
                 <div class="flex mx-5 items-center">
                     <div class="cursor-pointer w-1/3 block md:hidden" @click="showModal">
@@ -25,14 +26,6 @@
             class=" border-b-[3px] border-[#e0e0e0] bg-[rgb(245_245_245_/80%)] hidden md:block">
             <div class="mx-auto px-3 xl:max-w-[1320px]">
                 <ul class="flex min-h-10 items-center">
-                    <!-- <li class="nav-item nav-search">
-                        <div class="search-wrap">
-                            <input type="text" class="form-control" placeholder="Từ khóa tìm kiếm">
-                            <a to="#">
-                                <Icon name="fa6-solid:magnifying-glass" />
-                            </a>
-                        </div>
-                    </li> -->
                     <li class="text-[#ff0018] text-[14px] !mr-a py-3 px-2 hover:bg-[#eee] cursor-pointer"
                         @click="showModal">
                         <a class=" menuDesktop" title="Trang chủ" id="">
@@ -40,46 +33,23 @@
                         </a>
                     </li>
                     <li class=" relative group py-3 px-2 text-[#ff0018] text-[14px] font-700 uppercase hover:bg-[#eee]"
-                        v-for="item in listParent">
-                        <nuxt-link  class="cursor-pointer" :to="item.code === 'trang-chu' ? '/' : `/${item.code}`"
+                        v-for="item in listParent"
+                        :class="{ '!bg-[rgba(0,0,0,0.2)]': listFocusMenu.includes(item.code) }">
+                        <nuxt-link class="cursor-pointer" :to="item.code === 'trang-chu' ? '/' : `/${item.code}`"
                             :title="item.title">{{ item.title }}</nuxt-link>
                         <ul
                             class="z-2 absolute top-full border-white border-t-[2px] bg-[#eee] left-0 w-[260px] hidden group-hover:inline-block">
                             <li class="font-300 text-[15px]"
+                                :class="{ 'bg-[rgba(0,0,0,0.2)]': listFocusMenu.includes(itemChild.code) }"
                                 v-for="itemChild in categoryStoreV2.findChildren({ id: item.id })">
-                                <nuxt-link :to="`/${ itemChild.code }`"
+                                <nuxt-link :to="`/${itemChild.code}`"
                                     class="hover:underline py-3 border-b-[2px] border-white px-2 block"
                                     :title="itemChild.title">{{ itemChild.title }}</nuxt-link>
                             </li>
                         </ul>
                     </li>
-                    <!-- <li class="relative group py-3 px-2 text-[#ff0018] text-[14px] font-700 uppercase hover:bg-[#eee]">
-                        <a class="" to="" title="Thời sự">Thời sự</a>
-                        <ul
-                            class="z-2 absolute top-full border-white border-t-[2px] bg-[#eee] left-0 w-[260px] hidden group-hover:inline-block">
-                            <li class="font-300 text-[15px] "><a to="/chinh-tri"
-                                    class="hover:underline py-3 border-b-[2px] border-white px-2 block"
-                                    title="Chính trị">Nghị quyết Đảng vào
-                                    cuộc sống</a></li>
-                            <li class="font-300 text-[15px] "><a to="/chinh-tri"
-                                    class="hover:underline py-3 border-b-[2px] border-white px-2 block"
-                                    title="Chính trị">Theo gương Bác
-                                    Hồ</a></li>
-                            <li class="font-300 text-[15px] "><a to="/chinh-tri"
-                                    class="hover:underline py-3 border-b-[2px] border-white px-2 block"
-                                    title="Chính trị">Cải cách hành
-                                    chính</a></li>
-                            <li class="font-300 text-[15px] "><a to="/chinh-sach"
-                                    class="hover:underline py-3 border-b-[2px] border-white px-2 block"
-                                    title="Chính sách">Thông tin đối
-                                    ngoại</a></li>
-                            <li class="font-300 text-[15px] "><a to="/quoc-te"
-                                    class="hover:underline py-3 border-b-[2px] border-white px-2 block"
-                                    title="Quốc tế">Tin tức</a></li>
-                        </ul>
-                    </li> -->
                     <li class="py-3 px-2 text-[#ff0018] text-[14px] font-700 uppercase hover:bg-[#eee] ml-a !block">
-                        <nuxt-link class=" !block" to="" title="Ấn phẩm">
+                        <nuxt-link class="cursor-pointer !block" :to="'/'" title="Ấn phẩm">
                             <img src="/images/logo-ktdt.png" alt="" class="max-h-5 object-cover" />
                         </nuxt-link>
                     </li>
@@ -104,16 +74,23 @@
                                 <input @focus="focusInput = true" @focusout="focusInput = false" type="text"
                                     class="form-control  p-2 text-3 w-full font-300 outline-none border border-gray"
                                     placeholder="Từ khóa tìm kiếm">
-                                <nuxt-link to="#"><Icon class="absolute top-1/2 transform -translate-y-1/2 text-red-500 right-3 text-3xl" name="material-symbols-light:search" /></nuxt-link>
+                                <nuxt-link to="#">
+                                    <Icon
+                                        class="absolute top-1/2 transform -translate-y-1/2 text-red-500 right-3 text-3xl"
+                                        name="material-symbols-light:search" />
+                                </nuxt-link>
                             </div>
                         </li>
-                        <li @click="showModal" class=" hover:text-[#ff0018]  uppercase  hover:bg-[#f5f5f5]" v-for="item in listParent">
+                        <li @click="showModal" class=" hover:text-[#ff0018]  uppercase  hover:bg-[#f5f5f5]"
+                            v-for="item in listParent">
                             <nuxt-link class="font-bold text-[16px] py-3 border-b-[2px] border-white px-2 block"
-                                :to="item.code === 'trang-chu' ? '/' : `/${item.code}`" :title="item.title">{{ item.title
-                                }}</nuxt-link>
-                            <ul class="">
-                                <li class="font-300 text-[15px] " @click="showModal"
-                                    v-for="itemChild in categoryStoreV2.findChildren({ id: item.id })">
+                                :class="{ '!bg-[rgba(0,0,0,0.2)]': listFocusMenu.includes(item.code) }"
+                                :to="item.code === 'trang-chu' ? '/' : `/${item.code}`" :title="item.title">{{
+                item.title }}</nuxt-link>
+                            <ul>
+                                <li class="font-300 text-[15px]"
+                                    v-for="itemChild in categoryStoreV2.findChildren({ id: item.id })"
+                                    :class="{ '!bg-[rgba(0,0,0,0.2)]': listFocusMenu.includes(itemChild.code) }">
                                     <nuxt-link :to="`/${itemChild.code}`"
                                         class="hover:underline py-3 border-b-[2px] border-white px-2 block"
                                         :title="itemChild.title">{{ itemChild.title }}</nuxt-link>
@@ -135,6 +112,7 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useCategoryStoreV2 } from '~/stores/v2/category.ts'
 const categoryStoreV2 = useCategoryStoreV2()
+const route = useRoute()
 const isFixed = ref(false);
 const isShow = ref(false);
 const focusInput = ref(false);
@@ -150,16 +128,20 @@ const fetchMenu = async () => {
     await categoryStoreV2.fetchCategories();
     listParent = categoryStoreV2.v2_categories.filter(item => item.parentId === null).reverse();
 }
+
 await fetchMenu()
 const showModal = () => {
     if (!isShow.value) {
         isShow.value = true
-        document.body.classList.add('overflow-hidden')
     } else {
         isShow.value = false
-        document.body.classList.remove('overflow-hidden')
     }
+    document.body.classList.toggle('overflow-hidden')
 }
+const listFocusMenu = computed(() => {
+    const category = categoryStoreV2.findByCode(route.params.category || 'trang-chu')
+    return categoryStoreV2.findParents(category).map((item) => item.code) || []
+});
 onMounted(() => {
     window.addEventListener('scroll', handleScroll);
 });

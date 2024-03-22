@@ -19,14 +19,14 @@ const props = defineProps<{
                         <h5 class="font-bold line-clamp-2 hover:text-primary-100" v-html="props.articles[0]?.title">
                         </h5>
                         <span class="text-sm line-clamp-5" v-html="props.articles[0]?.intro"></span>
-                        <div class="flex flex-wrap gap-2 mt-2 justify-start items-center">
+                        <!-- <div class="flex flex-wrap gap-2 mt-2 justify-start items-center">
                             <NuxtLink :to="'/' + props.articles[0]?.category?.code">
                                 <span class="text-sm text-primary-100 font-semibold">{{
                     props.articles[0]?.category?.title }}</span>
                             </NuxtLink>
                             <span class="text-sm hidden sm:inline-block">-</span>
                             <span class="text-sm">{{ utils.dateFormat(props.articles[0]?.createdOn) }}</span>
-                        </div>
+                        </div> -->
                     </div>
                 </Nuxt-link>
             </article>
@@ -56,14 +56,14 @@ const props = defineProps<{
                             <img :src="article?.thumbnail || '/images/default-thumbnail.jpg'"
                                 :alt="article?.title?.replace(/<[^>]+>/g, '')" class="w-full h-full object-cover" />
                         </div>
-                        <div class="flex-1 flex flex-col gap-1">
+                        <!-- <div class="flex-1 flex flex-col gap-1">
                             <h5 class="font-bold line-clamp-2" v-html="article?.title"></h5>
                             <NuxtLink :to="'/' + article.category?.code">
                                 <span class="text-sm text-primary-100 font-semibold">{{ article.category?.title
                                     }}</span>
                             </NuxtLink>
                             <span class="text-sm">{{ utils.dateFormat(article.createdOn) }}</span>
-                        </div>
+                        </div> -->
                     </Nuxt-link>
                 </article>
             </div>

@@ -18,13 +18,13 @@ const props = defineProps<{
                         <h3 class="font-semibold hover-text-primary-100 transition-all duration-300 text-sm sm:text-base">
                             {{ article.title?.replace(/<[^>]+>/g, '') }}
                         </h3>
-                        <div class="flex flex-wrap gap-2 mt-0 md:mt-2 justify-start items-center">
+                        <!-- <div class="flex flex-wrap gap-2 mt-0 md:mt-2 justify-start items-center">
                             <NuxtLink :to="'/' + article.category?.code">
                                 <span class="text-sm text-primary-100 font-semibold">{{ article.category?.title
                                     }}</span>
                             </NuxtLink>
                             <span class="text-sm md:inline-block hidden">{{ utils.dateFormat(article.createdOn) }}</span>
-                        </div>
+                        </div> -->
                     </div>
                 </NuxtLink>
             </div>
@@ -41,16 +41,16 @@ const props = defineProps<{
                             >
                             {{ article.title?.replace(/<[^>]+>/g, '') }}
                         </h3>
-                        <p class="text-xs sm:text-sm mt-1 md:inline-block hidden" :class="{'!hidden':i===1}">
+                        <p class="text-xs sm:text-sm mt-1 md:inline-block hidden">
                             {{ article.intro?.replace(/<[^>]+>/g, '') }}
                         </p>
-                        <div class="flex flex-wrap gap-2 mt-2 justify-start items-center">
+                        <!-- <div class="flex flex-wrap gap-2 mt-2 justify-start items-center">
                             <NuxtLink :to="'/' + article.category?.code">
                                 <span class="text-sm text-primary-100 font-semibold">{{ article.category?.title
                                     }}</span>
                             </NuxtLink>
                             <span class="text-sm md:inline-block hidden">{{ utils.dateFormat(article.createdOn) }}</span>
-                        </div>
+                        </div> -->
                     </div>
                 </NuxtLink>
             </article>

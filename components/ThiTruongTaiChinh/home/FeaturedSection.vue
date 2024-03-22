@@ -9,7 +9,7 @@
                         <figure class="order-1 md:order-2 h-[280px] w-full" :class="{ '!w-full !order-1': imgFull }"><nuxt-link class="" :to="`${data[0]?.category?.code}/${data[0]?.code}`"><img alt=""
                                     class="object-cover rounded-lg h-full w-full" :src="data[0]?.thumbnail" style=""></nuxt-link></figure>
                         <header class=" md:order-1 order-2">
-                            <h3 class="font-playfair group-hover:text-[#ff0018] font-bold text-[1.25rem] md:text-[1.35rem] leading-[1.4]"><a :to="`${data[0]?.category?.code}/${data[0]?.code}`">{{ data[0]?.title }}</a></h3>
+                            <h3 class="font-playfair group-hover:text-[#ff0018] font-bold text-[1.25rem] md:text-[1.35rem] leading-[1.4]"><nuxt-link :to="`${data[0]?.category?.code}/${data[0]?.code}`">{{ data[0]?.title.replace(/<div>|<\/div>/g, '') }}</nuxt-link></h3>
                             <div class="text-[15px] font-400 line-clamp-4 mt-1"><span v-html="data[0]?.intro"></span></div>
                         </header>
                     </article>

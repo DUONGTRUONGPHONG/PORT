@@ -43,13 +43,13 @@ const props = defineProps<{
                             <h3 class="text-sm md:text-base font-semibold mt-2 hover-text-primary-100 transition-all duration-300">
                                 {{ article.title?.replace(/<[^>]+>/g, '') }}
                             </h3>
-                            <div class="flex flex-wrap gap-2 mt-2 justify-start items-center">
+                            <!-- <div class="flex flex-wrap gap-2 mt-2 justify-start items-center">
                                 <NuxtLink :to="'/' + article.category?.code">
                                     <span class="text-sm text-primary-100 font-semibold">{{ article.category?.title }}</span>
                                 </NuxtLink>
                                 <span class="text-sm hidden sm:inline-block">-</span>
                                 <span class="text-sm">{{ utils.dateFormat(article.createdOn) }}</span>
-                            </div>
+                            </div> -->
                         </NuxtLink>
                     </div>
                 </div>

@@ -10,18 +10,18 @@ const props = defineProps<{
             <article class="flex gap-3 items-center" :class="{ 'pt-4': i !== 0 }">
                 <figure class="w-[150px] h-20"><img alt="" class="object-cover h-full w-full rounded-lg"
                             :src="article?.thumbnail" style="">
-                </figure>
+                </figure>~
                 <NuxtLink class="flex-1" :to="'/' + article.category?.code + '/'+ String(article.code)">
-                    <h3 class="font-semibold">
+                    <h3 class="font-semibold hover-text-primary-100">
                         {{ article.title?.replace(/<[^>]+>/g, '') }}
                     </h3>
-                    <div class="flex flex-wrap gap-2 mt-2 justify-start items-center">
+                    <!-- <div class="flex flex-wrap gap-2 mt-2 justify-start items-center">
                                 <NuxtLink :to="'/' + article.category?.code">
                                     <span class="text-sm text-primary-100 font-semibold">{{ article.category?.title }}</span>
                                 </NuxtLink>
                                 <span class="text-sm hidden sm:inline-block">-</span>
                                 <span class="text-sm">{{ utils.dateFormat(article.createdOn) }}</span>
-                            </div>
+                            </div> -->
                 </NuxtLink>
             </article>
         </template>

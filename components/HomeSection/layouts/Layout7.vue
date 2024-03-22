@@ -2,7 +2,7 @@
 const props = defineProps<{
     articles: any[]
 }>()
-console.log(props.articles)
+
 </script>
 
 <template>
@@ -21,14 +21,14 @@ console.log(props.articles)
                         <h5 class="font-bold line-clamp-2 hover:text-primary-100" v-html="article?.title">
                         </h5>
                         <span class="text-sm line-clamp-5" v-html="article?.intro"></span>
-                        <div class="flex flex-wrap gap-2 mt-2 justify-start items-center">
+                        <!-- <div class="flex flex-wrap gap-2 mt-2 justify-start items-center">
                             <NuxtLink :to="'/' + article?.category?.code">
                                 <span class="text-sm text-primary-100 font-semibold">{{
             article?.category?.title }}</span>
                             </NuxtLink>
                             <span class="text-sm hidden sm:inline-block">-</span>
                             <span class="text-sm">{{ utils.dateFormat(article?.createdOn) }}</span>
-                        </div>
+                        </div> -->
                     </div>
                 </Nuxt-link>
             </article>

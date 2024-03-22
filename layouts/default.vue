@@ -7,8 +7,6 @@
 </template>
 <script setup>
     import { HeaderTTTC, Header, FooterTTTC, Footer } from './index'
-    const router = useRouter()
-    const checkRouter = router.currentRoute.value.query.layout
     const header = {
         thitruongtaichinh: HeaderTTTC,
         stable: Header
@@ -18,7 +16,9 @@
         stable: Footer
     }
     const url = useRequestURL();
-    const hostname = url.hostname.split('.')[0];
-    console.log(hostname)
+    let hostname = url.hostname.split('.')[0];
+    if(hostname == "localhost") {
+        hostname = "stable"
+    }
 </script>
 

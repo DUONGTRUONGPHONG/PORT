@@ -3,10 +3,12 @@ import { useCommentStoreV2 } from '~/stores/v2/comment';
 import type { Comment } from '~/server/models/v2/comment';
 import { PagingData } from '~/objects/paging-data';
 import { useModalStoreV2 } from '~/stores/v2/modal';
+import { useProfileStore } from '~/stores/v2/profile';
 import type { User } from '~/server/models/v2/user';
 
 const props = defineProps<{ articleId?: number }>();
-
+const profileStore = useProfileStore()
+const { profile } = storeToRefs(profileStore)
 const v2CommentStore = useCommentStoreV2();
 const modalStore = useModalStoreV2()
 const { status, data } = useAuth()
@@ -63,10 +65,13 @@ onMounted(() => {
     }
   }, { immediate: true });
 
-  if (data.value?.user) {
-    user.value = data.value?.user as User
-  }
+  // if (data.value?.user) {
+  //   user.value = data.value?.user as User
+  // }
 })
+if(profile.value) user.value = profile.value as User
+  // console.log(user.value,profile.value)
+  console.log({ articleId: props.articleId, content: commentContent.value })
 </script>
 <template>
   <div class="mt-4">

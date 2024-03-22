@@ -18,37 +18,46 @@ const store = {
 }
 
 const props2Layout = new Map([
-    [ 1, Layout1 ],
-    [ 2, Layout2 ],
-    [ 4, Layout4 ],
-    [ 5, Layout5 ],
-    [ 6, Layout6 ],
-    [ 7, Layout7 ],
-    [ 3, Layout8 ],
-    [ 9, Layout9 ],
-    [ 11, Layout11 ]
+    [1, Layout1],
+    [2, Layout2],
+    [4, Layout4],
+    [5, Layout5],
+    [6, Layout6],
+    [7, Layout7],
+    [3, Layout6],
+    [9, Layout9],
+    [11, Layout11]
 ])
 const articles = shallowRef<any[]>([])
 const categories = shallowRef<any[]>([])
-
+const navigation= ref(null)
 if (props.featured) {
     // const data = await $fetch(`https://portal-api-stable.vpress.vn/api-v1/cms/category-article-layout/page:${props.page}-layout:${props.layout}`, {
     //     headers: {
     //         Site: '1'
     //     }
     // })
-    const data =  await store.article.fetchByCategorySectionArticle(Number(props.layout))
-
-    if(data){
+    const data = await store.article.fetchByCategorySectionArticle(Number(props.layout))
+    if (Object.keys(data).length !== 0) {
         const { item }: any = data
-        articles.value = item?.articlePublishings
-        categories.value = [item?.navigation,...item?.subNavigations]
+        articles.value = item?.articlePublishings || []
+        const arr = []
+        if (item?.navigation) {
+            navigation.value=item?.navigation
+            // categories.value = [item?.navigation, ...item?.subNavigations]
+            arr.push(item?.navigation)
+            if (item?.subNavigations) {
+                arr.push(...item?.subNavigations)
+            }
+            categories.value = arr
+        }
     }
+
 } else {
-    articles.value = await store.article.fetchByCategoryIdWithPaging(Number(props.category), props.limit)
+    articles.value = await store.article.fetchByCategoryIdWithPaging(Number(props.category), props.limit) || []
     const primaryCategory: any = store.category.findById(Number(props.category))
-    const secondaryCategories = store.category.findChildren(primaryCategory)
-    categories.value = [ primaryCategory, ...<[]>secondaryCategories ]
+    const secondaryCategories = store.category.findChildren(primaryCategory) || []
+    categories.value = [primaryCategory, ...<[]>secondaryCategories]
 }
 
 // function getCategoriesFromLayout(obj: any) {
@@ -59,6 +68,6 @@ if (props.featured) {
 </script>
 
 <template>
-    <HomeSectionHeader v-if="!noHeader&&categories.length>0" :categories="categories" />
-    <Component :is="props2Layout.get(Number(props.layout))" v-if="articles.length > 0" :articles="articles" />
+    <HomeSectionHeader v-if="!noHeader && categories?.length > 0" :categories="categories" />
+    <Component :is="props2Layout.get(Number(props.layout))" v-if="articles.length > 0&&navigation" :articles="articles" />
 </template>

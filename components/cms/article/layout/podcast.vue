@@ -3,7 +3,7 @@ import type { Article } from '~/server/models/v2/article';
 import type { Category } from '~/server/models/v2/category';
 
 const props = defineProps<{ article: Article, category?: Category }>();
-
+const ORIGIN = 'https://stable.vpress.vn'
 const htmlString = props.article.detail
 const srcRegex = /src="([^"]+)"/;
 const matchSRC = htmlString?.match(srcRegex);
@@ -31,10 +31,11 @@ const matchSRC = htmlString?.match(srcRegex);
                                 <div class="col-span-7 grid grid-cols-12  relative">
                                     <div class="col-span-12 w-full grid grid-cols-12 mt-8 md:mb-4">
                                         <div class="col-span-11">
-                                            <h1 v-html="article?.sub" class="text-xl font-bold text-white opacity-60"></h1>
+                                            <h1 v-html="article?.sub" class="text-xl font-bold text-white opacity-60">
+                                            </h1>
                                             <h1 class="text-md md:text-3xl text-[#fff] font-bold font-['SFD']">{{
                         article.title }}</h1>
-                                            <CustomText :text="utils.dateFormat(article?.createdOn)"
+                                            <CustomText :text="utils.dateFormat(article?.createdOn, 'dddd, DD/MM/YYYY - HH:mm')"
                                                 class="xs:mt-0.5 text-[10px] md:text-sm text-[#fff]" tag="time" />
                                         </div>
                                     </div>
@@ -45,16 +46,15 @@ const matchSRC = htmlString?.match(srcRegex);
                                     <div class="col-span-11">
                                         <AudioPlayer :src="matchSRC?.[1]" />
                                         <section>
-                                            <article
-                                                class="mb-[1rem] py-[0.5rem] flex items-center">
+                                            <article class="mb-[1rem] py-[0.5rem] flex items-center">
                                                 <iframe
-                                                    src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width=160&amp;layout=button&amp;action=like&amp;size=small&amp;share=true&amp;height=65&amp;appId"
+                                                    :src="`https://www.facebook.com/plugins/like.php?href=${ORIGIN}/${category?.code}/${article?.code}&amp;width=160&amp;layout=button&amp;action=like&amp;size=small&amp;share=true&amp;height=65&amp;appId`"
                                                     width="140" height="20" style="border:none;overflow:hidden"
                                                     scrolling="no" frameborder="0" allowfullscreen="true"
                                                     allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                                             </article>
                                         </section>
-                                        <Topic :topics="article?.topics" :colorWhite="true"/>
+                                        <Topic :topics="article?.topics" :colorWhite="true" />
                                         <Event :events="article?.events" />
                                         <Tag :tags="article?.tags" :colorWhite="true" />
                                     </div>

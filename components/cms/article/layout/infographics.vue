@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Comment from '@/components/comments/Comment.vue';
 import type { Article } from '~/server/models/v2/article';
-
+const ORIGIN = 'https://stable.vpress.vn'
 const props = defineProps<{ article?: Article | null, category?: any }>();
 const fontSize = ref(16)
 const increaseFontSize = () => {
@@ -39,7 +39,7 @@ const decreaseFontSize = () => {
                 </div>
               </div>
             </div>
-            
+
             <h1 v-html="article?.sub" class="text-xl font-bold opacity-60"></h1>
             <h1 v-html="article?.title" class="text-2xl font-bold text-black mt-4"></h1>
 
@@ -48,7 +48,8 @@ const decreaseFontSize = () => {
             <div id="article-brief" class="text-sm text-black pt-3">
               <div v-html="article?.intro" class="font-semibold"></div>
             </div>
-            <div id="article-detail" :class="'text-['+fontSize+'px]'" class="grid gap-4 text-black font-sembold text-sm pt-4" v-html="article.detail">
+            <div id="article-detail" :class="'text-[' + fontSize + 'px]'"
+              class="grid gap-4 text-black font-sembold text-sm pt-4" v-html="article.detail">
             </div>
           </article>
 
@@ -56,7 +57,7 @@ const decreaseFontSize = () => {
             <section>
               <article class="mb-[1rem] py-[1rem] border-y-[1px] border-solid border-[#e0e0e0] flex items-center">
                 <iframe
-                  src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width=160&amp;layout=button&amp;action=like&amp;size=small&amp;share=true&amp;height=65&amp;appId"
+                  :src="`https://www.facebook.com/plugins/like.php?href=${ORIGIN}/${category?.code}/${article?.code}&amp;width=160&amp;layout=button&amp;action=like&amp;size=small&amp;share=true&amp;height=65&amp;appId`"
                   width="140" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
                   allowfullscreen="true"
                   allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>

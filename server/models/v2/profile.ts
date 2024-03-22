@@ -21,6 +21,7 @@ export type ProfileWithNameAndTotalCommentAndEmail = {
     email?: string;
     name: string;
     totalComment: number;
+    externalLoginProvider?: string
 } & Profile
 
 export type Reader = {

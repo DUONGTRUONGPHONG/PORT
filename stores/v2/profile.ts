@@ -17,7 +17,7 @@ export const useProfileStore = defineStore("profile", () => {
     const { data, error } = await useFetch<GeneralUser>(
       "/api/v2/user/current-user"
     );
-
+    // console.log(data.value)
     if (error.value) {
       return null;
     }
@@ -27,15 +27,16 @@ export const useProfileStore = defineStore("profile", () => {
       profile.value.email = data.value.user.email;
       profile.value.totalComment = data.value.totalComment;
       profile.value.name = data.value.user.name;
+      profile.value.externalLoginProvider = data.value.user?.externalLoginProvider
       setAlias("current-user");
     }
 
     return profile.value;
   }
 
-  async function fetchById(id: number, options:{noFetch?:boolean}) {
-    if(options.noFetch) return Promise.resolve(null);
-    const { data, error } = await useFetch<Reader >(
+  async function fetchById(id: number, options: { noFetch?: boolean }) {
+    if (options.noFetch) return Promise.resolve(null);
+    const { data, error } = await useFetch<Reader>(
       `/api/v2/user/${id}`
     );
 
@@ -103,14 +104,18 @@ export const useProfileStore = defineStore("profile", () => {
     }
   }
 
-  function getCurrentUserId(){
-    const user = computed(() => data.value?.user) as ComputedRef<User | undefined>
-    return user.value?.id
+  function getCurrentUserId() {
+    // if (['GOOGLE'].includes(profile.value?.externalLoginProvider)) {
+    //   return profile.value?.userId
+    // }
+    // const user = computed(() => data.value?.user) as ComputedRef<User | undefined>
+    // return user.value?.id
+    return profile.value?.userId
   }
 
-  function isCurrentUser(id:number){    
-      if(status.value === 'authenticated') return getCurrentUserId() === id
-      return false
+  function isCurrentUser(id: number) {
+    if (status.value === 'authenticated') return getCurrentUserId() === id
+    return false
   }
 
   return {

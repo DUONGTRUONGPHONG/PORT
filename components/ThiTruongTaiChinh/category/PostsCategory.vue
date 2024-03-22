@@ -7,14 +7,14 @@
                 </h2>
                 <div class="flex-1 w-full bg-[#ff0018] h-[1px] mb-[10px]"></div>
             </header>
-            <div class="">
+            <div>
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
                     <div class=" gap-x-4" :class="[listData?.length > 0 ? 'col-span-1 ' : 'col-span-2']">
                         <article class="group mb-0 lg:mb-lg-0">
-                            <figure class="rounded-lg max-h-[380px] mb-2 overflow-hidden" :class="[listData?.length > 0 ? 'xl:h-[170px]' : 'h-auto']">
-                                <nuxt-link to="#"><img alt="" class="w-full h-full object-cover" :src="data[0]?.thumbnail"></nuxt-link>
+                            <figure class="rounded-lg max-h-[380px] mb-2 overflow-hidden" :class="[listData?.length > 0 ? 'xl:h-[170px]' : 'h-[350px]']">
+                                <nuxt-link :to="`/${data[0]?.category?.code}/${data[0]?.code}`"><img alt="" class="w-full h-full object-cover" :src="data[0]?.thumbnail"></nuxt-link>
                             </figure>
-                            <header class="">
+                            <header>
                                 <h3 class="text-[1.25rem] font-bold leading-[1.2] font-playfair group-hover:text-[#ff0018]"><nuxt-link :to="`/${data[0]?.category?.code}/${data[0]?.code}`" v-html="data[0]?.title"></nuxt-link></h3>
                                 <div class="text-[13px] opacity-50 my-2"><time datetime="2011-01-12">{{dayjs(data[0]?.createdOn).format('MMMM DD,YYYY') }}</time>
                                 </div>
@@ -27,7 +27,7 @@
                                 <nuxt-link :to="`/${item?.category?.code}/${item?.code}`"><img alt="" :src="item?.thumbnail" class="w-full h-full object-cover"></nuxt-link>
                             </figure>
                             <header class="flex-1">
-                                <h3 class="text-[1.1rem] leading-[1.3] font-playfair group-hover:text-[#ff0018]"><nuxt-link to="" v-html="item?.title"></nuxt-link></h3>
+                                <h3 class="text-[1.1rem] leading-[1.3] font-playfair group-hover:text-[#ff0018] "><nuxt-link :to="`/${item?.category?.code}/${item?.code}`" v-html="item?.title"></nuxt-link></h3>
                             </header>
                         </article>
                     </div>

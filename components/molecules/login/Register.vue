@@ -19,7 +19,7 @@ const form = reactive({
 
 const check = z.object({
   email: z.string().email({ message: 'Email không hợp lệ' }),
-  name: z.string().min(8, { message: 'Tài khoản phải có ít nhất 8 ký tự' }),
+  name: z.string().min(8, { message: 'Tài khoản phải có ít nhất 8 ký tự' }).max(20,'Tài khoản có độ dài tối đa 20 ký tự'),
   password: z.string().min(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' }),
   confirmPassword: z.string().min(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' }),
 })
@@ -89,7 +89,7 @@ const toggleVisibility = () => {
 
     <div class="relative mb-4" data-te-input-wrapper-init>
       <input type="text" v-model="form.name" class="peer block min-h-[auto] w-full rounded border border-gray-300 p-3"
-        placeholder="Nhập tài khoản....." />
+        placeholder="Nhập tên....." />
       <div v-if="!fieldErrors.success && fieldErrors.errors.name" class="text-red text-xs pt-1">
         {{ fieldErrors.errors.name._errors[0] }}
       </div>

@@ -7,10 +7,10 @@
         <div class="">
             <article class="flex gap-3 flex-wrap justify-between" v-for="item in data">
                 <figure class="w-10 flex justify-center items-center">
-                    <nuxt-link :to="`/${item?.category?.code}/${i?.code}`" class="overflow-hidden pb-[100%] rounded-full block relative w-full bg-[#eeeeee]" to="#"><img :src="item?.thumbnail" alt="" class="object-cover border-2 border-solid border-[white] absolute object-cover w-full h-full transition-transform duration-[0.5s] ease-[ease-in-out] rounded-[inherit] inset-0 absolute object-cover w-full h-full transition-transform duration-[0.5s] ease-[ease-in-out] rounded-[inherit] inset-0"></nuxt-link>
+                    <nuxt-link :to="`/${item?.category?.code}/${item?.code}`" class="overflow-hidden pb-[100%] rounded-full block relative w-full bg-[#eeeeee]" to="#"><img :src="item?.thumbnail" alt="" class="object-cover border-2 border-solid border-[white] absolute object-cover w-full h-full transition-transform duration-[0.5s] ease-[ease-in-out] rounded-[inherit] inset-0 absolute object-cover w-full h-full transition-transform duration-[0.5s] ease-[ease-in-out] rounded-[inherit] inset-0"></nuxt-link>
                 </figure>
                 <header class=" flex-1">
-                    <h3 class="">{{ item?.title }}</h3>
+                    <nuxt-link :to="`/${item?.category?.code}/${item?.code}`"><h3 class="">{{ item?.title }}</h3></nuxt-link>
                     <div class="opacity-60">{{ dayjs(item.createdOn).locale('en').format('MMMM Do, YYYY') }}</div>
                 </header>
                 <div class="">
