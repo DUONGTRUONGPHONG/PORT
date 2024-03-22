@@ -1,0 +1,1 @@
+export const {apiUrl,pagingDefault,pagingLimit,site} = useRuntimeConfig().public;

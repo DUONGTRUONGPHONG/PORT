@@ -1,0 +1,1 @@
+export type { UnoTextSize } from './text-size.model'
